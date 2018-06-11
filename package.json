@@ -1,0 +1,71 @@
+{
+  "name": "exposure-utility",
+  "version": "0.1.0",
+  "description": "Photographic exposure calculation utilities",
+  "main": "src/exposure-utilities.js",
+  "scripts": {
+    "compile": "tsc",
+    "coveralls": "cat coverage/lcov.info | coveralls",
+    "docs": "typedoc --out docs/ src/ && touch docs/.nojekyll && git add .",
+    "format": "prettier src/*.ts __test__/*.ts --no-semi --write --single-quote",
+    "precommit": "npm test && npm run format && npm run docs",
+    "prepublish": "tsc",
+    "test": "jest"
+  },
+  "author": "Evan Shortiss <evanshortiss@gmail.com> (http://evanshortiss.com/)",
+  "license": "MIT",
+  "jest": {
+    "globals": {
+      "ts-jest": {
+        "tsConfigFile": "__test__/tsconfig.json"
+      }
+    },
+    "testEnvironment": "node",
+    "cache": false,
+    "collectCoverage": true,
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "coverageThreshold": {
+      "global": {
+        "branches": 90,
+        "functions": 90,
+        "lines": 90,
+        "statements": 90
+      }
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
+  },
+  "keywords": [
+    "exposure",
+    "calculator",
+    "calculations",
+    "photo",
+    "iso",
+    "aperture",
+    "shutter",
+    "speed"
+  ],
+  "devDependencies": {
+    "@types/jest": "~23.0.0",
+    "@types/node": "~10.3.2",
+    "coveralls": "~3.0.1",
+    "husky": "~0.14.3",
+    "jest": "~23.1.0",
+    "prettier": "~1.13.5",
+    "ts-jest": "~22.4.6",
+    "typedoc": "~0.11.1",
+    "typescript": "~2.9.1"
+  },
+  "engines": {
+    "node": ">=6"
+  }
+}
