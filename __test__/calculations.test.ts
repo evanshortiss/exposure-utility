@@ -23,8 +23,12 @@ describe('calculations', () => {
 
     describe('#getIncrements()', () => {
       it('should return thirds', () => {
-        const calc = new calculations.ExposureCalculator(ExposureIncrements.Thirds)
-        expect(calc.getIncrements()).toEqual(calculations.ExposureIncrements.Thirds)
+        const calc = new calculations.ExposureCalculator(
+          ExposureIncrements.Thirds
+        )
+        expect(calc.getIncrements()).toEqual(
+          calculations.ExposureIncrements.Thirds
+        )
       })
     })
 
@@ -185,7 +189,9 @@ describe('calculations', () => {
       })
 
       it('should return an out of range shutter as a number of seconds (1/1)', () => {
-        const calc = new calculations.ExposureCalculator(ExposureIncrements.Full)
+        const calc = new calculations.ExposureCalculator(
+          ExposureIncrements.Full
+        )
         const shutter = calc.calculateNewShutterFromBaseExposure(
           {
             iso: '1600',
@@ -199,7 +205,9 @@ describe('calculations', () => {
       })
 
       it('should return an out of range shutter as a number of seconds (1/1)', () => {
-        const calc = new calculations.ExposureCalculator(ExposureIncrements.Full)
+        const calc = new calculations.ExposureCalculator(
+          ExposureIncrements.Full
+        )
         const shutter = calc.calculateNewShutterFromBaseExposure(
           {
             iso: '1600',
@@ -213,7 +221,9 @@ describe('calculations', () => {
       })
 
       it('should return an out of range shutter as a number of seconds (1/1)', () => {
-        const calc = new calculations.ExposureCalculator(ExposureIncrements.Full)
+        const calc = new calculations.ExposureCalculator(
+          ExposureIncrements.Full
+        )
         const shutter = calc.calculateNewShutterFromBaseExposure(
           {
             iso: '1600',

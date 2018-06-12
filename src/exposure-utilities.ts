@@ -106,7 +106,7 @@ export class UnderexposedError extends Error {
  * increments in calculations
  */
 export class ExposureCalculator {
-  constructor (public increments: ExposureIncrements) {}
+  constructor(public increments: ExposureIncrements) {}
 
   /**
    * Returns the value required for an exposure calculation, or an error
@@ -319,9 +319,7 @@ export class ExposureCalculator {
     const stops = getIncrementAsNumber(this.increments)
     const factor = Math.pow(2, stops)
     const baseShutterVal = baseExposureSettings.shutter
-    const baseShutterIdx = this
-      .getShutterSpeeds()
-      .indexOf(baseShutterVal)
+    const baseShutterIdx = this.getShutterSpeeds().indexOf(baseShutterVal)
 
     // How many stops below 30 seconds are we...let's find out
     const offset = Math.abs(baseShutterIdx - offsetInStops)
