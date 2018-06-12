@@ -1,6 +1,6 @@
 # exposure-utility
 
-![https://travis-ci.org/evanshortiss/exposure-utility](https://travis-ci.org/evanshortiss/exposure-utility.svg) [![npm version](https://badge.fury.io/js/%40evanshortiss%2Fexposure-utility.svg)](https://badge.fury.io/js/%40evanshortiss%2Fexposure-utility.svg) [![https://coveralls.io/repos/github/evanshortiss/exposure-utility](https://coveralls.io/repos/github/evanshortiss/exposure-utility/badge.svg?branch=master)](https://coveralls.io/github/evanshortiss/exposure-utility?branch=master)
+![https://travis-ci.org/evanshortiss/exposure-utility](https://travis-ci.org/evanshortiss/exposure-utility.svg) [![npm version](https://badge.fury.io/js/exposure-utility.svg)](https://badge.fury.io/js/exposure-utility.svg) [![https://coveralls.io/repos/github/evanshortiss/exposure-utility](https://coveralls.io/repos/github/evanshortiss/exposure-utility/badge.svg?branch=master)](https://coveralls.io/github/evanshortiss/exposure-utility?branch=master)
 [![TypeScript](https://badges.frapsoft.com/typescript/version/typescript-next.svg?v=101)](https://github.com/ellerbrock/typescript-badges/)
 
 This code is a quick TypeScript port of some JavaScript code I had written for
@@ -15,9 +15,11 @@ The implementation is simple and it won't error out in some areas that it
 arguably should, e.g you pass a ⅓ stop value to an instance of
 ExposureCalculator that is using full stops.
 
-Enjoy and feel free to contribute by opening a PR or Issue. Happy snapping  📷 👍
+Enjoy! Feel free to contribute by opening a PR or Issue. Happy snapping  📷 👍
 
 ## Usage
+
+* Tested with TypeScipt 2.9
 
 ### Node.js & ES5
 
