@@ -19,7 +19,11 @@ Enjoy! Feel free to contribute by opening a PR or Issue. Happy snapping  ðŸ“· ðŸ
 
 ## Usage
 
-* Tested with TypeScipt 2.9
+### Supported Node.js & TypeScript Versions
+
+* TypeScipt 2.9+
+* Node.js 6+
+
 
 ### Node.js & ES5
 
