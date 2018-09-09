@@ -1,6 +1,6 @@
 {
   "name": "exposure-utility",
-  "version": "0.1.1",
+  "version": "0.3.0",
   "description": "Photographic exposure calculation utilities",
   "main": "src/exposure-utilities.js",
   "typings": "src/exposure-utilities.d.ts",

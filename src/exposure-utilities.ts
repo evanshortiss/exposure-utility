@@ -13,7 +13,7 @@ export enum ExposureIncrements {
 }
 
 export enum ExposurePropertyNames {
-  ISO = 'ISO',
+  ISO = 'iso',
   Aperture = 'aperture',
   Shutter = 'shutter'
 }
@@ -65,11 +65,21 @@ export class OverexposedError extends Error {
     values: ExposureTriangleEntry[],
     increments: ExposureIncrements
   ) {
-    const msg = `The given parameters will result in an overexposed image. Using a value of ${
-      values[values.length - 1]
-    } will still result in overexposure by ${requiredIdx -
-      values.length -
-      1} ${increments} stops.`
+    const diff = requiredIdx - (values.length - 1)
+    let msg: string
+
+    if (ExposureIncrements.Full !== increments) {
+      msg = `The given parameters will result in an overexposed image. Using a value of ${
+        values[values.length - 1]
+      } will still result in overexposure by ${diff} ${increments} stop increments (${formatErrorToFullStops(
+        increments,
+        diff
+      )} full stop(s))`
+    } else {
+      msg = `The given parameters will result in an overexposed image. Using a value of ${
+        values[values.length - 1]
+      } will still result in overexposure by ${diff} stop(s).`
+    }
 
     super(msg)
     this.name = 'OverexposedError'
@@ -88,16 +98,44 @@ export class UnderexposedError extends Error {
     values: ExposureTriangleEntry[],
     increments: ExposureIncrements
   ) {
-    const msg = `The given parameters will result in an underexposed image. Using a value of ${
-      values[0]
-    } will still result in underexposure by ${Math.abs(
-      baseIdx - requiredIdx
-    )} ${increments} stops.`
+    const diff = Math.abs(baseIdx - requiredIdx)
+    let msg: string
+
+    if (ExposureIncrements.Full !== increments) {
+      msg = `The given parameters will result in an underexposed image. Using a value of ${
+        values[0]
+      } will still result in underexposure by ${diff} ${increments} stop increments (${formatErrorToFullStops(
+        increments,
+        diff
+      )} full stop(s))`
+    } else {
+      msg = `The given parameters will result in an underexposed image. Using a value of ${
+        values[0]
+      } will still result in underexposure by ${diff} stop(s).`
+    }
 
     super(msg)
     this.name = 'UnderexposedError'
     // https://stackoverflow.com/questions/41102060/typescript-extending-error-class
     Object.setPrototypeOf(this, UnderexposedError.prototype)
+  }
+}
+
+function formatErrorToFullStops(increments: ExposureIncrements, diff: number) {
+  if (increments === ExposureIncrements.Full) {
+    throw new Error(
+      'formatErrorToFullStops received full increment type, but should only be passed ½ or ⅓'
+    )
+  }
+
+  const base = ExposureIncrements.Thirds === increments ? 3 : 2
+
+  if (diff === base) {
+    return 1
+  } else if (diff % base === 0) {
+    return diff / base
+  } else {
+    return ((1 / base) * diff).toFixed(1)
   }
 }
 

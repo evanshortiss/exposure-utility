@@ -67,22 +67,33 @@ describe('calculations', () => {
         expect(aperture).toEqual('f/11')
       })
 
-      it('should throw an overexposure error', () => {
+      it('should throw an underexposore error for thirds', () => {
+        const calc = new calculations.ExposureCalculator(
+          ExposureIncrements.Thirds
+        )
+
         expect(() => {
           calc.calculateNewApertureFromBaseExposure(
             {
-              iso: '50',
-              aperture: 'f/2.8',
-              shutter: '1/60'
+              iso: '200',
+              aperture: 'f/1',
+              shutter: '30"'
             },
-            { shutter: '1"', iso: '1600' }
+            {
+              shutter: '30"',
+              iso: '70'
+            }
           )
-        }).toThrowError(
-          /The given parameters will result in an overexposed image./gi
+        }).toThrow(
+          'The given parameters will result in an underexposed image. Using a value of f/1 will still result in underexposure by 4 ⅓ stop increments (1.3 full stop(s))'
         )
       })
 
-      it('should throw an underexposure error', () => {
+      it('should throw an underexposure error for half increments', () => {
+        const calc = new calculations.ExposureCalculator(
+          ExposureIncrements.Halves
+        )
+
         expect(() => {
           calc.calculateNewApertureFromBaseExposure(
             {
@@ -93,7 +104,83 @@ describe('calculations', () => {
             { shutter: '1"', iso: '100' }
           )
         }).toThrowError(
-          /The given parameters will result in an underexposed image./gi
+          'The given parameters will result in an underexposed image. Using a value of f/1 will still result in underexposure by 15 ½ stop increments (7.5 full stop(s)'
+        )
+      })
+
+      it('should throw an overexposure error for full stops', () => {
+        const calc = new calculations.ExposureCalculator(
+          ExposureIncrements.Full
+        )
+
+        expect(() => {
+          calc.calculateNewApertureFromBaseExposure(
+            {
+              iso: '1600',
+              aperture: 'f/2.8',
+              shutter: '15"'
+            },
+            { shutter: '1"', iso: '100' }
+          )
+        }).toThrowError(
+          'he given parameters will result in an underexposed image. Using a value of f/1 will still result in underexposure by 8 stop(s)'
+        )
+      })
+
+      it('should throw an underexposure error for full stops', () => {
+        const calc = new calculations.ExposureCalculator(
+          ExposureIncrements.Full
+        )
+
+        expect(() => {
+          calc.calculateNewApertureFromBaseExposure(
+            {
+              iso: '1600',
+              aperture: 'f/1',
+              shutter: '1/4000'
+            },
+            { shutter: '1/8000', iso: '1600' }
+          )
+        }).toThrowError(
+          'The given parameters will result in an underexposed image. Using a value of f/1 will still result in underexposure by 1 stop(s)'
+        )
+      })
+
+      it('should throw an overexposure error for third stops (tests formatting for 1 full stop)', () => {
+        const calc = new calculations.ExposureCalculator(
+          ExposureIncrements.Thirds
+        )
+
+        expect(() => {
+          calc.calculateNewApertureFromBaseExposure(
+            {
+              iso: '1600',
+              aperture: 'f/64',
+              shutter: '1/8000'
+            },
+            { shutter: '1/4000', iso: '1600' }
+          )
+        }).toThrowError(
+          'The given parameters will result in an overexposed image. Using a value of f/64 will still result in overexposure by 3 ⅓ stop increments (1 full stop(s))'
+        )
+      })
+
+      it('should throw an overexposure error for third stops (tests formatting for over 1 full stop)', () => {
+        const calc = new calculations.ExposureCalculator(
+          ExposureIncrements.Thirds
+        )
+
+        expect(() => {
+          calc.calculateNewApertureFromBaseExposure(
+            {
+              iso: '1600',
+              aperture: 'f/64',
+              shutter: '1/8000'
+            },
+            { shutter: '1/2000', iso: '1600' }
+          )
+        }).toThrowError(
+          'The given parameters will result in an overexposed image. Using a value of f/64 will still result in overexposure by 6 ⅓ stop increments (2 full stop(s))'
         )
       })
     })
